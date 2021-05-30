@@ -14,7 +14,7 @@ export const unpkgPathPlugin = () => {
         if (args.path.includes('./') || args.path.includes('../')){
           return {
             namespace:'a',
-            path: new URL(args.path,args.importer + '/').href
+            path: new URL(args.path,'https://unpkg.com' + args.resolveDir + '/').href
           };
         }
 
@@ -32,8 +32,10 @@ export const unpkgPathPlugin = () => {
           return {
             loader: "jsx",
             contents: `
-              const message = require('tiny-test-pkg');
-              console.log(message);
+              const react = require('react');
+              const reactDOM = require('react-dom');
+
+              console.log(react,reactDOM);
             `,
           };
         }
