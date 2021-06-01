@@ -3,6 +3,7 @@ import {useState,useEffect,useRef} from "react";
 import ReactDOM from "react-dom";
 import { unpkgPathPlugin } from "./plugins/unpkg-path-plugin";
 import {fetchPlugin} from "./plugins/fetch-plugin";
+import CodeEditor from "./components/code-editor";
 
 const App = () => {
 
@@ -39,7 +40,6 @@ const App = () => {
                 global: 'window',
             }
         })
-        // setCode(result.outputFiles[0].text);
         iFrameRef.current.contentWindow.postMessage(result.outputFiles[0].text,'*');
     };
 
@@ -65,11 +65,12 @@ const App = () => {
 
     return (
         <div>
+            <CodeEditor/>
             <textarea value={input} onChange={e => setInput(e.target.value)}></textarea>
             <div>
                 <button onClick={onClick}>submit</button>
             </div>
-            <iframe ref={iFrameRef} sandbox="allow-scripts" srcDoc={html} /> 
+            <iframe title="code preview"ref={iFrameRef} sandbox="allow-scripts" srcDoc={html} /> 
         </div>
     )
 }
