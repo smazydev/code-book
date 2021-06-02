@@ -1,8 +1,21 @@
-import MonacoEditor from "@monaco-editor/react";
+import Editor from "@monaco-editor/react";
 
-const CodeEditor = () => {
+interface ICodeEditor {
+  setInput(value: string): void;
+}
+
+const CodeEditor: React.FC<ICodeEditor> = ({ setInput }) => {
+  
+  const handleEditorChange = (value:any, event:any) => {
+    // here is the current value
+    setInput(value);
+  }
+
   return (
-    <MonacoEditor
+    <Editor
+      height="90vh"
+      defaultLanguage="javascript"
+      onChange={handleEditorChange}
       options={{
         wordWrap: "on",
         minimap: { enabled: false },
@@ -11,11 +24,9 @@ const CodeEditor = () => {
         lineNumbersMinChars: 3,
         fontSize: 16,
         scrollBeyondLastLine: false,
-        automaticLayout:true,
+        automaticLayout: true,
       }}
       theme="vs-dark"
-      language="javascript"
-      height="500px"
     />
   );
 };
