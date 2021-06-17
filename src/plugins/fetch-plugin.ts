@@ -7,18 +7,12 @@ const fileCache = localForage.createInstance({
   name: "filecache",
 });
 
-(async () => {
-  await fileCache.setItem("color", "red");
-  const color = await fileCache.getItem("color");
-  console.log(color);
-})();
-
 export const fetchPlugin = (inputCode: string) => {
   return {
     name: "fetch-plugin",
     setup(build: esbuild.PluginBuild) {
 
-    build.onLoad({filter:/(^index\.js$)/}, ():esbuild.OnLoadResult => {
+    build.onLoad({filter:/(^index\.js$)/}, () => {
       return {loader:'jsx',contents:inputCode};
     });
 
